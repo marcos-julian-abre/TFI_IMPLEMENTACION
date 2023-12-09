@@ -1,0 +1,41 @@
+    public function listProductsView(){
+
+
+
+
+
+        $miListaProductos = new productos();
+        
+        $nuevaListaProductos = json_decode(json_encode($miListaProductos->getProductosNombre()), true);
+
+        $listaProductosFinal = '';
+        $i = 0;
+        while(!empty($nuevaListaProductos[$i])){
+        $listaProductosFinal = $listaProductosFinal . '\''. $nuevaListaProductos[$i]['nombre_producto'] . '\', ';
+        
+        $i = $i +1;
+        }
+
+
+        $miNuevaCanasta = new canastas();
+        $miUsuario = new Usuario();
+    
+        $miUsuarioCanasta =  $miUsuario->setUsuario('',
+        '',
+        '',
+        Session::get('id_usuario'),
+        '',
+        '',);
+           
+    
+        $misCanastasUsuario = json_decode(json_encode($miNuevaCanasta->getCanastaByUsuario($miUsuarioCanasta)), true);
+
+        return view('list_products_view',[
+            'tipoUsuario' => Session::get('tipo_usuario'),
+            'nombreUsuario' => Session::get('usuario'),
+            'canastasActuales' => $misCanastasUsuario,
+            'listaProductosFinal' => $listaProductosFinal,
+            'idUsuario' => Session::get('id_usuario'),
+            'idSesion' => Session::get('id_sesion')
+        ]);
+    }
