@@ -8,27 +8,44 @@ use App\Models\Usuario;
 use Illuminate\Http\Request;
 use App\Http\Controllers\SessionController;
 
-class LoginController extends Controller
+class AuthenticationFacade
 {
-    public function login(){
-                
-        $miLogin = new usuarios();
+    public function attemptLogin($username, $password)
+    {
         $miNuevoUsuario = new Usuario();
-        $miUsuario = $miNuevoUsuario->setUsuario($_POST['usuario'], $_POST['contraseña'], '','','','');
-        
-        $resultadoLogin = $miLogin->credentialsValidation($miUsuario); 
-        
-        
-        if ($resultadoLogin){
-            $miSesion = new SessionController();
-            $miSesion->startSession($resultadoLogin);
-            return redirect ('/index');
-        }else {
-            return redirect ('/login/1');
-        }
-        
+        $miUsuario = $miNuevoUsuario->setUsuario($username, $password, '', '', '', '');
+
+        $miLogin = new usuarios();
+        $resultadoLogin = $miLogin->credentialsValidation($miUsuario);
+
+        return $resultadoLogin;
     }
 
+    public function startSession($userData)
+    {
+        $miSesion = SessionController::getInstance();
+        $miSesion->startSession($userData);
+    }
+}
+
+class LoginController extends Controller
+{
+    public function login()
+    {
+        $authFacade = new AuthenticationFacade();
+    
+        $username = $_POST['usuario'];
+        $password = $_POST['contraseña'];
+    
+        $resultadoLogin = $authFacade->attemptLogin($username, $password);
+    
+        if ($resultadoLogin) {
+            $authFacade->startSession($resultadoLogin);
+            return redirect('/index');
+        } else {
+            return redirect('/login/1');
+        }
+    }
 
 
     public function loginView(){
@@ -42,7 +59,9 @@ class LoginController extends Controller
     
    $alertaLogin = $alert;
     return view('login_view',['alertaLogin' => $alertaLogin]);
-    }
+    }   
 
 
 }
+
+

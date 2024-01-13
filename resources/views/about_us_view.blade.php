@@ -96,9 +96,9 @@
                     <p class="lead mb-4">Bienvenido a Nutra, donde nos esforzamos por brindarte información y herramientas para llevar un estilo de vida saludable.</p>
 
                     <div class="mb-4">
-                        <iframe width="560" height="315" src="https://www.youtube.com/embed/I4EOBtLDnKo" frameborder="0" allowfullscreen></iframe>
+                        <iframe width="560" height="315" src="https://www.youtube.com/embed/b0eBxCZSPMs" frameborder="0" allowfullscreen></iframe>
                     </div>
-
+                    
                     <div class="mb-4">
                         <p class="lead">Conéctate con nosotros en redes sociales:</p>
                         <!-- Facebook -->
@@ -107,12 +107,12 @@
                         </a>
 
                         <!-- Twitter -->
-                        <a href="https://twitter.com/tucuenta" target="_blank" class="social-icon">
+                        <a href="https://twitter.com/Nutra_Arg" target="_blank" class="social-icon">
                             <i class="fab fa-twitter"></i>
                         </a>
 
                         <!-- Instagram -->
-                        <a href="https://www.instagram.com/tucuenta" target="_blank" class="social-icon">
+                        <a href="https://www.instagram.com/nutra_arg/" target="_blank" class="social-icon">
                             <i class="fab fa-instagram"></i>
                         </a>
 

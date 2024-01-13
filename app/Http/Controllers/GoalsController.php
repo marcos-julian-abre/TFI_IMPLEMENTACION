@@ -177,15 +177,39 @@ class GoalsController extends Controller
     }
 }
 
+        public function goalsDelete($idDelete)
+        {
+            $misMetas = new metas();
 
-    public function goalsDelete($idDelete){
-        
-        $misMetas = new metas();
+            $deleteGoalCommand = new DeleteGoalCommand($misMetas, $idDelete);
+            $this->executeCommand($deleteGoalCommand);
+
+            return redirect('/goals');
+        }
+
+        private function executeCommand($command)
+        {
+            $command->execute();
+        }
+}
+
+
+class DeleteGoalCommand
+{
+    private $metas;
+    private $meta;
+
+    public function __construct(metas $metas, $idUsuarioMeta)
+    {
+        $this->metas = $metas;
+        $this->idUsuarioMeta = $idUsuarioMeta;
+    }
+
+    public function execute()
+    {
         $miNuevaMeta = new Meta();
-        $miMetaDelete = $miNuevaMeta->setMeta('','','','',$idDelete,'');
+        $miMetaDelete = $miNuevaMeta->setMeta('', '', '', '', $this->idUsuarioMeta, '');
 
-        $miDeleteMetaUsuario = json_decode(json_encode($misMetas->deleteMetaUsuarioByIdMetaUsuario($miMetaDelete)), true);
-
-        return redirect('/goals');
+        $this->metas->deleteMetaUsuarioByIdMetaUsuario($miMetaDelete);
     }
 }

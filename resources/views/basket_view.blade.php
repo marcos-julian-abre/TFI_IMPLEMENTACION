@@ -127,6 +127,7 @@
 			</div>
 		@endforeach
 	</div>
+    <br>
 @endif
 
 

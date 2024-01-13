@@ -11,7 +11,7 @@ class LogoutController extends Controller
 {
     public function logout(){
 
-    $miLogout = new SessionController();
+    $miLogout = SessionController::getInstance();
     $miLogout->endSession();
 
     return redirect ('/login');

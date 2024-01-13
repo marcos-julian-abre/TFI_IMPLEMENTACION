@@ -9,11 +9,27 @@ use App\Models\Sesion;
 
 
 
+
 class SessionController extends Controller
 {
-    
-    public function startSession($datosUsuario){
-    
+    private static $instance;
+
+    private function __construct()
+    {
+        // Private constructor to prevent instantiation
+    }
+
+    public static function getInstance()
+    {
+        if (!self::$instance) {
+            self::$instance = new self();
+        }
+
+        return self::$instance;
+    }
+
+    public function startSession($datosUsuario)
+    {       
     $datosUsuario2 = json_decode(json_encode($datosUsuario), true);
 
 
@@ -37,21 +53,20 @@ class SessionController extends Controller
 
 
     return;
+
+        return;
     }
 
-
-    public function endSession(){
-
-    $miIdSesion = Session::get('id_sesion');
-    $nuevaSesion = new sesiones;
-    $miNuevaSesion = new Sesion;
-
-    $miSesion = $miNuevaSesion->setSesion($miIdSesion,'');
-
-    $nuevaSesion->setLogout($miSesion);
-
-    return;
-        
+    public function endSession()
+    {
+        $miIdSesion = Session::get('id_sesion');
+        $nuevaSesion = new sesiones;
+        $miNuevaSesion = new Sesion;
+    
+        $miSesion = $miNuevaSesion->setSesion($miIdSesion,'');
+    
+        $nuevaSesion->setLogout($miSesion);
+    
+        return;
     }
-
 }
